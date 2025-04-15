@@ -14,6 +14,31 @@ export class World {
   
       // Click Event
       this.canvas.addEventListener("click", (e) => this.onClick(e));
+      this.trailGrid = this.createEmptyTrailGrid();
+    }
+
+    createEmptyTrailGrid() {
+      const width = Math.floor(this.canvas.width);
+      const height = Math.floor(this.canvas.height);
+      const grid = [];
+    
+      for (let x = 0; x < width; x++) {
+        grid[x] = [];
+        for (let y = 0; y < height; y++) {
+          grid[x][y] = { hue: null, intensity: 0 };
+        }
+      }
+      return grid;
+    }
+
+    fadeTrails() {
+      for (let x = 0; x < this.canvas.width; x++) {
+        for (let y = 0; y < this.canvas.height; y++) {
+          if (this.trailGrid[x][y].intensity > 0) {
+            this.trailGrid[x][y].intensity *= 0.95; // langsames Verblassen
+          }
+        }
+      }
     }
   
     onClick(e) {
@@ -65,13 +90,18 @@ export class World {
     const newOrganisms = [];
 
     for (let org of this.organisms) {
-      org.move(this.plants);
+      org.move(this.plants, this.trailGrid); // <-- trailGrid mitgeben
       org.tryToEat(this.plants);
-      org.maybeReproduce(newOrganisms);
     }
 
     this.organisms = this.organisms.filter(o => !o.isDead());
     this.organisms.push(...newOrganisms);
+
+    for (let i = 0; i < this.organisms.length; i++) {
+      for (let j = i + 1; j < this.organisms.length; j++) {
+        this.organisms[i].tryToReproduceWith(this.organisms[j], newOrganisms);
+      }
+    }
 
     if (Math.random() < 0.08) {
       this.spawnPlant();
