@@ -1,13 +1,19 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-  <meta charset="UTF-8" />
-  <title>Digitale Ursuppe</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
 <body>
   <h1>Digitale Ursuppe 🌿</h1>
-  <canvas id="world" width="800" height="600"></canvas>
+  <div id="canvas-container">
+    <canvas id="world" width="800" height="600"></canvas>
+    <div id="infobox" style="display: none;">
+      <h3>Organismus-Details</h3>
+      <div id="genes"></div>
+    </div>
+  </div>
+  <h2>📈 Genetischer Verlauf</h2>
+  <div id="legend">
+    <span class="legend-item" style="color: red;">● Speed</span>
+    <span class="legend-item" style="color: blue;">● Vision</span>
+    <span class="legend-item" style="color: green;">● Randomness</span>
+  </div>
+  <canvas id="chart" width="800" height="150"></canvas>
+  
   <script type="module" src="main.js"></script>
 </body>
-</html>
