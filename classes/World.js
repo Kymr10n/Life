@@ -3,21 +3,21 @@ import { Organism } from './Organism.js';
 import { Plant } from './Plant.js';
 
 export class World {
-    constructor(canvas, ctx) {
-      this.canvas = canvas;
-      this.ctx = ctx;
-      this.organisms = [];
-      this.plants = [];
-      this.stats = new Stats();
-  
-      this.selected = null;
-  
-      // Click Event
-      this.canvas.addEventListener("click", (e) => this.onClick(e));
-      this.trailGrid = this.createEmptyTrailGrid();
-    }
+  constructor(canvas, ctx) {
+    this.canvas = canvas;
+    this.ctx = ctx;
+    this.organisms = [];
+    this.plants = [];
+    this.stats = new Stats();
 
-    createEmptyTrailGrid() {
+    this.selected = null;
+    this.frameCount = 0; // Initialize frameCount
+    this.lastTime = 0;   // Initialize lastTime
+
+    // Click Event
+    this.canvas.addEventListener("click", (e) => this.onClick(e));
+    this.trailGrid = this.createEmptyTrailGrid();
+  }    createEmptyTrailGrid() {
       const width = Math.floor(this.canvas.width);
       const height = Math.floor(this.canvas.height);
       const grid = [];
@@ -32,10 +32,22 @@ export class World {
     }
 
     fadeTrails() {
-      for (let x = 0; x < this.canvas.width; x++) {
-        for (let y = 0; y < this.canvas.height; y++) {
-          if (this.trailGrid[x][y].intensity > 0) {
-            this.trailGrid[x][y].intensity *= 0.95; // langsames Verblassen
+      // Only fade trails that are actually used - much more efficient
+      for (let org of this.organisms) {
+        const radius = 20; // Only fade around organisms
+        const startX = Math.max(0, Math.floor(org.x - radius));
+        const endX = Math.min(this.canvas.width - 1, Math.floor(org.x + radius));
+        const startY = Math.max(0, Math.floor(org.y - radius));
+        const endY = Math.min(this.canvas.height - 1, Math.floor(org.y + radius));
+        
+        for (let x = startX; x <= endX; x++) {
+          for (let y = startY; y <= endY; y++) {
+            if (this.trailGrid[x][y].intensity > 0) {
+              this.trailGrid[x][y].intensity *= 0.95; // langsames Verblassen
+              if (this.trailGrid[x][y].intensity < 0.01) {
+                this.trailGrid[x][y].intensity = 0; // Clean up very faint trails
+              }
+            }
           }
         }
       }
@@ -90,7 +102,7 @@ export class World {
     const newOrganisms = [];
 
     for (let org of this.organisms) {
-      org.move(this.plants, this.trailGrid); // <-- trailGrid mitgeben
+      org.move(this.plants, this.trailGrid, this.organisms); // Pass organisms for crowd detection
       org.tryToEat(this.plants);
     }
 
@@ -106,6 +118,12 @@ export class World {
     if (Math.random() < 0.08) {
       this.spawnPlant();
     }
+
+    // Add trail fading - but only every few frames to improve performance
+    if (this.frameCount % 3 === 0) {
+      this.fadeTrails();
+    }
+    this.frameCount += 1;
 
     this.stats.update(this.organisms);
   }
@@ -130,8 +148,22 @@ export class World {
   }
 
   loop() {
-    this.update();
-    this.draw();
+    const now = performance.now();
+    if (!this.lastTime) this.lastTime = now;
+    const deltaTime = now - this.lastTime;
+    
+    // Limit to ~60 FPS to prevent excessive CPU usage
+    if (deltaTime >= 16) {
+      this.update();
+      this.draw();
+      this.lastTime = now;
+      
+      // Performance monitoring - safe check for frameCount
+      if (this.frameCount && this.frameCount % 60 === 0) {
+        console.log(`Organisms: ${this.organisms.length}, Plants: ${this.plants.length}`);
+      }
+    }
+    
     requestAnimationFrame(() => this.loop());
   }
 }
