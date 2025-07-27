@@ -2,29 +2,67 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Launch in Chrome",
+      "name": "Debug TypeScript (Vite Dev Server)",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:3000/index-ts.html",
+      "webRoot": "${workspaceFolder}/src",
+      "sourceMaps": true,
+      "preLaunchTask": "npm: dev",
+      "presentation": {
+        "group": "typescript",
+        "order": 1
+      }
+    },
+    {
+      "name": "Debug TypeScript (Production Build)",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:4173/index-ts.html",
+      "webRoot": "${workspaceFolder}/dist",
+      "sourceMaps": true,
+      "preLaunchTask": "npm: preview",
+      "presentation": {
+        "group": "typescript",
+        "order": 2
+      }
+    },
+    {
+      "name": "Debug JavaScript (Original)",
       "type": "chrome",
       "request": "launch",
       "file": "${workspaceFolder}/index.html",
       "webRoot": "${workspaceFolder}",
       "runtimeArgs": [
         "--allow-file-access-from-files"
-      ]
+      ],
+      "presentation": {
+        "group": "javascript",
+        "order": 3
+      }
     },
     {
-      "name": "Launch with Live Server",
+      "name": "Debug JavaScript (Live Server)",
       "type": "chrome",
       "request": "launch",
       "url": "http://127.0.0.1:5500/index.html",
       "webRoot": "${workspaceFolder}",
-      "preLaunchTask": "Start Live Server"
+      "preLaunchTask": "Start Live Server",
+      "presentation": {
+        "group": "javascript",
+        "order": 4
+      }
     },
     {
-      "name": "Attach to Chrome",
+      "name": "Attach to Chrome (Any)",
       "type": "chrome",
       "request": "attach",
       "port": 9222,
-      "webRoot": "${workspaceFolder}"
+      "webRoot": "${workspaceFolder}",
+      "presentation": {
+        "group": "attach",
+        "order": 5
+      }
     }
   ]
 }

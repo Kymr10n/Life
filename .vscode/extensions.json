@@ -1,5 +1,14 @@
 {
     "recommendations": [
-        "ritwickdey.liveserver"
+        "ms-vscode.vscode-typescript-next",
+        "esbenp.prettier-vscode",
+        "ms-vscode.vscode-json",
+        "ritwickdey.liveserver",
+        "ms-vscode.js-debug",
+        "formulahendry.auto-rename-tag",
+        "christian-kohler.path-intellisense",
+        "ms-vscode.references-view",
+        "gruntfuggly.todo-tree",
+        "streetsidesoftware.code-spell-checker"
     ]
 }
