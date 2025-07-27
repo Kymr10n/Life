@@ -5,12 +5,14 @@ A sophisticated artificial life simulation featuring genetic algorithms, agent-b
 ## 🚀 Quick Start
 
 ### Development
+
 ```bash
 npm install        # Install dependencies
 npm run dev        # Start development server (http://localhost:3000)
 ```
 
 ### Production
+
 ```bash
 npm run build      # Build for production
 npm run preview    # Preview production build
@@ -39,6 +41,7 @@ Use `F5` or go to Run & Debug panel to select a configuration.
 ### Recommended Extensions
 
 Install the recommended extensions for the best development experience:
+
 - TypeScript support
 - Prettier formatting
 - Live Server
@@ -68,6 +71,7 @@ Install the recommended extensions for the best development experience:
 ## ⚡ Features
 
 ### Core Simulation
+
 - **Genetic Evolution**: Speed, vision, and randomness traits evolve
 - **Survival Instincts**: Hunger-based behavior prioritization
 - **Anti-Clustering**: Advanced dispersal mechanisms
@@ -75,6 +79,7 @@ Install the recommended extensions for the best development experience:
 - **Dynamic Environment**: Adaptive plant spawning
 
 ### Technical Features
+
 - **TypeScript**: Full type safety and IntelliSense
 - **Vite**: Fast HMR and optimized builds
 - **Event System**: Clean architecture with event-driven design
@@ -82,6 +87,7 @@ Install the recommended extensions for the best development experience:
 - **Debugging**: Comprehensive VS Code debug configurations
 
 ### Performance Optimizations
+
 - Trail grid optimization (95% performance improvement)
 - Frame rate limiting (60 FPS target)
 - Efficient spatial partitioning
@@ -90,12 +96,14 @@ Install the recommended extensions for the best development experience:
 ## 🧪 Simulation Parameters
 
 ### Organism Behavior
+
 - **Energy < 50**: Prioritizes food seeking over reproduction
 - **Vision Range**: Genetic trait affecting food detection
 - **Speed**: Genetic trait affecting movement speed
 - **Randomness**: Genetic trait affecting exploration behavior
 
 ### Environmental Factors
+
 - **Plant Spawning**: Dynamic based on current population
 - **Boundary Reflection**: Physics-based wall bouncing
 - **Crowd Dispersal**: Anti-clustering mechanisms
@@ -128,6 +136,7 @@ npx tsc --noEmit     # Check TypeScript without emitting files
 ## 📈 Performance Metrics
 
 The simulation includes real-time performance monitoring:
+
 - Frame rate tracking
 - Population statistics
 - Genetic trait averages

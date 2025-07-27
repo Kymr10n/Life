@@ -1,18 +1,17 @@
-import { OrganismData, Genes, TrailData } from '../types/index.js';
-import { Plant } from './Plant.js';
-import { 
-  generateId, 
-  distance, 
-  clamp, 
-  normalizeAngle, 
-  random 
-} from '../utils/math.js';
-import { 
-  crossoverGenes, 
-  isColorCompatible, 
-  mixColors, 
-  generateRandomGenes 
+import { Genes, OrganismData, TrailData } from '../types/index.js';
+import {
+    crossoverGenes,
+    generateRandomGenes,
+    isColorCompatible,
+    mixColors
 } from '../utils/genetics.js';
+import {
+    distance,
+    generateId,
+    normalizeAngle,
+    random
+} from '../utils/math.js';
+import { Plant } from './Plant.js';
 
 export class Organism implements OrganismData {
   public readonly id: string;

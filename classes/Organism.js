@@ -1,4 +1,3 @@
-import { Plant } from './Plant.js';
 
 // Helper function for genetic mutation
 function avgMutate(a, b) {
@@ -251,7 +250,7 @@ export class Organism {
       partner.energy >= 50 && // Both partners need sufficient energy
       this.isCompatibleWith(partner)
     ) {
-      // Beide geben 30 Energie ab
+      // Both parents give 30 energy to the offspring
       this.energy -= 30;
       partner.energy -= 30;
   

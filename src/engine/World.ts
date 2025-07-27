@@ -1,7 +1,7 @@
-import { SimulationStats, TrailData, OrganismData, PlantData } from '../types/index.js';
+import { OrganismData, PlantData, SimulationStats, TrailData } from '../types/index.js';
+import { clamp, random } from '../utils/math.js';
 import { Organism } from './Organism.js';
 import { Plant } from './Plant.js';
-import { clamp, random } from '../utils/math.js';
 
 export interface WorldEvents {
   statsUpdate: (stats: SimulationStats) => void;
